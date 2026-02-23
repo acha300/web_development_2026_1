@@ -16,7 +16,6 @@
  </style>
 </head>
 <body>
-    <!-- #2 CSS -->
     <h1 style="color: brown;">Web Development</h1>
     <h3 id="myText">Local Storage vs Session storage</h3>
     <h5 class="myClass myMood">Kdmonteal</h5>
@@ -26,17 +25,75 @@
 
     <h2>Local Storage</h2>
     <span>Nombre(Local Storage):</span>
-    <input type="text" name="nameLocal" id="nameLocal">
+    <input type="text" id="nameLocal">
     <button onclick="saveToLocalStorage()"> Guardar </button><br><br>
-    <span>Nombre guardado es: XXX</span>
+    <span>Nombre guardado es: <b id="showLocal">XXX</b></span>
+
     <hr>
+
     <h2>Session Storage</h2>
     <span>Nombre(Session Storage):</span>
-    <input type="text" name="nameSession" id="nameSession">
+    <input type="text" id="nameSession">
     <button onclick="saveToSessionStorage()"> Guardar </button><br><br>
-    <span>Nombre guardado es: XXX</span>
+    <span>Nombre guardado es: <b id="showSession">XXX</b></span>
 
-    <!-- JS -->
-    <script src="./src/js/main.js"></script>
+    <script>
+        window.onload = function () {
+            document.getElementById("showLocal").textContent =
+                localStorage.getItem("nombreLocal") || "XXX";
+
+            document.getElementById("showSession").textContent =
+                sessionStorage.getItem("nombreSession") || "XXX";
+
+            document.getElementById("showUser").textContent =
+                localStorage.getItem("usuario") || "XXX";
+
+            document.getElementById("showCart").textContent =
+                sessionStorage.getItem("carrito") || "XXX";
+        };
+
+        function saveToLocalStorage() {
+            let nombre = document.getElementById("nameLocal").value;
+            localStorage.setItem("nombreLocal", nombre);
+            document.getElementById("showLocal").textContent = nombre;
+        }
+
+        function saveToSessionStorage() {
+            let nombre = document.getElementById("nameSession").value;
+            sessionStorage.setItem("nombreSession", nombre);
+            document.getElementById("showSession").textContent = nombre;
+        }
+
+        function saveUser() {
+            let user = document.getElementById("userInput").value;
+            localStorage.setItem("usuario", user);
+            document.getElementById("showUser").textContent = user;
+        }
+
+        function saveCart() {
+            let product = document.getElementById("cartInput").value;
+            sessionStorage.setItem("carrito", product);
+            document.getElementById("showCart").textContent = product;
+        }
+    </script>
+
+    <!----------------->
+
+    <hr>
+
+    <h2>Datos de Usuario (LocalStorage)</h2>
+    <span>Nombre de usuario:</span>
+    <input type="text" id="userInput">
+    <button onclick="saveUser()"> Guardar </button><br><br>
+    <span>Nombre guardado es: <b id="showUser">XXX</b></span>
+
+    <hr>
+
+    <h2>Productos en el Carrito (SessionStorage)</h2>
+    <span>Producto:</span>
+    <input type="text" id="cartInput">
+    <button onclick="saveCart()"> Guardar </button><br><br>
+    <span>Nombre guardado es: <b id="showCart">XXX</b></span>
+
 </body>
 </html>
